@@ -1,38 +1,23 @@
 #include <iostream>
 
-void reverseArray(int arr[], const int n) {
-	int start = 0, end = n - 1;
-	int temp = 0;
-
-	while (start < end) {
-		std::swap(arr[start], arr[end]);
-
-		start++;
-		end--;
+bool LinearSearch(const int arr[], const int n, const int key) {
+	for (int i = 0; i < n; i++) {
+		if (arr[i] == key) {
+			std::cout << "Key found in index " << i + 1 << std::endl;
+			return true;
+			break;
+		}
 	}
+	return false;
 }
 
 int main()
 {
-	// Arrays are collection of elements of the same type placed in contiguous memory locations
+	int arr[] = { 10,20,30,40,50,64,76,45,23,19 };
+	int size = sizeof(arr) / sizeof(int);
+	int key = 76;
 
-
-	int arr[] = { 10,20,30,40,50,64,76 };
-	int n = sizeof(arr) / sizeof(int);
-	
-	std::cout << "Before modification: ";
-	for (int i = 0; i < n; i++) {
-		std::cout << arr[i] << " ";
-	}
-	std::cout << std::endl;
-
-	reverseArray(arr, n);
-
-	std::cout << "After modification: ";
-	for (int i = 0; i < n; i++) {
-		std::cout << arr[i] << " ";
-	}
-	std::cout << std::endl;
+	LinearSearch(arr, size, key);
 
 	std::cin.get();
 }

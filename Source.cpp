@@ -1,23 +1,39 @@
 #include <iostream>
 
-bool LinearSearch(const int arr[], const int n, const int key) {
-	for (int i = 0; i < n; i++) {
-		if (arr[i] == key) {
-			std::cout << "Key found in index " << i + 1 << std::endl;
+bool BinarySearch(const int arr[], const int n, const int key) {
+	int start = 0, end = n-1, mid;
+	bool isKey = false;
+
+	while (start <= end) {
+		mid = (end + start) / 2;
+		if (key < arr[mid]) {
+			end = mid - 1;
+		}
+		else if (key == arr[mid]) {
+			std::cout << "Key found at index " << mid + 1 << std::endl;
+			isKey = true;
 			return true;
 			break;
 		}
+		else if (key > arr[mid]) {
+			start = mid + 1;
+		}
 	}
-	return false;
+	if (!isKey) {
+		std::cout << "Key not found!" << std::endl;
+		return false; 
+	}
 }
 
 int main()
 {
-	int arr[] = { 10,20,30,40,50,64,76,45,23,19 };
-	int size = sizeof(arr) / sizeof(int);
-	int key = 76;
+	// Binary search needs your search space monotonic (non decreasing or non increasing)
 
-	LinearSearch(arr, size, key);
+	int arr[] = { 10,17,20,30,36,40,50,64,76 };
+	int size = sizeof(arr) / sizeof(int);
+	int key = 176;
+
+	BinarySearch(arr, size, key);
 
 	std::cin.get();
 }

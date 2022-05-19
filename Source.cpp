@@ -1,37 +1,51 @@
 #include <iostream>
+#include <algorithm>
+#include <vector>
 
-void SelectionSort(int arr[], int size) {
-	int min = 0;
-	int minPos = 0;
+using std::cout;
+using std::endl;
 
-	for (int pos = 0; pos < size-1; pos++) {
-		minPos = pos;
+// works only with arrays of positive values
+void CountingSort(std::vector<int>& arr) {
+	int max = 0;
 
-		// find minimum in the unsorted array
-		for (int j = pos; j < size; j++) {
-			// find element of minimum element
-			if (arr[j] < arr[minPos]) {
-				minPos = j;
-			}
+	// findinf maximum element
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] > max) {
+			max = arr[i];
 		}
-
-		// swap minimum with current element
-		std::swap(arr[pos], arr[minPos]);
 	}
 
-	// print arr[]
-	for (int i = 0; i < size; i++) {
-		std::cout << arr[i] << " ";
+	// create a count array
+	std::vector<int>  frequency(max+1, 0);
+
+	// update frequency array
+	for (int x : arr) {
+		frequency[x]++;
 	}
-	std::cout << std::endl;
+
+	// put back elements from frequency to arr
+	int j = 0;
+	for (int i = 0; i < max+1; i++) {
+		while (frequency[i] > 0) {
+			arr[j] = i; // putting back values to arr
+			frequency[i]--; // decrese value of frequency
+			j++; // increase position of arr
+		}
+	}
+
+	// print arr
+	for (int x : arr) {
+		cout << x << " ";
+	}
+	cout << endl;
 }
 
 int main()
 {
-	int arr[] = { 10,7,12,-5,5,-32,61,2,1 };
-	int size = sizeof(arr) / sizeof(int);
+	std::vector<int> arr = { 10,7,12,5,5,32,61,2,1 };
 
-	SelectionSort(arr, size);
-
+	CountingSort(arr);
+	
 	std::cin.get();
 }

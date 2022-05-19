@@ -1,20 +1,26 @@
 #include <iostream>
 
-void InsertionSort(int arr[], int count) {
-	int temp = 0;
-	int current = 0;
-	int prev = 0;
-	for (int i = 1; i < count; i++) {
-		current = arr[i];
-		prev = i - 1;
-		while (prev >= 0 and arr[prev] > current) {
-			arr[prev + 1] = arr[prev]; // move prev one step ahead
-			prev--; // prev points on the prev location
+void SelectionSort(int arr[], int size) {
+	int min = 0;
+	int minPos = 0;
+
+	for (int pos = 0; pos < size-1; pos++) {
+		minPos = pos;
+
+		// find minimum in the unsorted array
+		for (int j = pos; j < size; j++) {
+			// find element of minimum element
+			if (arr[j] < arr[minPos]) {
+				minPos = j;
+			}
 		}
-		arr[prev + 1] = current; // put the element in the empty position
+
+		// swap minimum with current element
+		std::swap(arr[pos], arr[minPos]);
 	}
 
-	for (int i = 0; i < count; i++) {
+	// print arr[]
+	for (int i = 0; i < size; i++) {
 		std::cout << arr[i] << " ";
 	}
 	std::cout << std::endl;
@@ -22,10 +28,10 @@ void InsertionSort(int arr[], int count) {
 
 int main()
 {
-	int arr[] = { 10,7,2,5,6,2,1 };
+	int arr[] = { 10,7,12,-5,5,-32,61,2,1 };
 	int size = sizeof(arr) / sizeof(int);
 
-	InsertionSort(arr, size);
+	SelectionSort(arr, size);
 
 	std::cin.get();
 }

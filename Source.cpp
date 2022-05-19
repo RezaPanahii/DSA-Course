@@ -1,26 +1,25 @@
 #include <iostream>
 
-void LargestSumSubarrays(int arr[], int n) {
-	int currentSum = 0;
-	int maxSum = 0;
-	for (int i = 0; i < n; i++) {
-		currentSum += arr[i];
-		if (currentSum <= 0) {
-			currentSum = 0;
-		}
-		else if (currentSum > maxSum) {
-			maxSum = currentSum;
+void BubbleSort(int arr[], int n) {
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 0; j < n - i - 1; j++) {
+			if (arr[j] > arr[j + 1]) {
+				std::swap(arr[j], arr[j + 1]);
+			}
 		}
 	}
-	std::cout << "the largest subarray is " << maxSum << std::endl;
+	for (int i = 0; i < n; i++) {
+		std::cout << arr[i] << " ";
+	}
+	std::cout << std::endl;
 }
 
 int main()
 {
-	int arr[] = { -2,4,6,-8,-23,-10,17,-12,-14,16,-18 };
+	int arr[] = { 3,7,2,5,6,2,1 };
 	int size = sizeof(arr) / sizeof(int);
 
-	LargestSumSubarrays(arr, size);
+	BubbleSort(arr, size);
 
 	std::cin.get();
 }

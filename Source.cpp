@@ -1,69 +1,35 @@
 #include <iostream>
-#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
 
-struct coordinates
-{
-    int x = 0;
-    int y = 0;
-};
+string CompressString(string str) {
+    int n = str.length();
+    int count = 1;
+    string out;
+    
+    // abbbb
+    for (int i = 0; i < n;i++) {
+        count = 1;
+        while (i < n - 1 and str[i] == str[i + 1]) {
+            count++;
+            i++;
+        }
+        
+        out += str[i];
+        if (count > 1)
+            out += count+48;
+    }
+
+    return out;
+}
 
 int main()
 {
-    char ch;
-    ch = std::cin.get();
+    string s;
+    getline(cin, s);
 
-    coordinates cor;
-    int& x = cor.x;
-    int& y = cor.y;
-
-    while (ch != '\n') {
-        switch (ch)
-        {
-        case 'N':
-            y++;
-            break;
-        case 'S':
-            y--;
-            break;
-        case 'E':
-            x++;
-            break;
-        case 'W':
-            x--;
-            break;
-        default:
-            break;
-        }
-
-        ch = std::cin.get();
-    }
-
-    std::cout << "(" << x << ", " << y << ")" << std::endl;
-
-    while (x != 0 or y != 0) {
-
-        if (x > 0) {
-            std::cout << 'E';
-            x--;
-        }
-        else if (x < 0) {
-            std::cout << 'W';
-            x++;
-        }
-
-        while (y != 0) {
-
-            if (y > 0) {
-                std::cout << 'N';
-                y--;
-            }
-            else if (y < 0) {
-                std::cout << 'S';
-                y++;
-            }
-
-        }
-    }
+    cout << CompressString(s);
 
     return 0;
 }

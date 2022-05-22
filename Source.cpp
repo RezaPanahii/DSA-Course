@@ -4,29 +4,29 @@
 #include <algorithm>
 using namespace std;
 
-void staircaseSearch(int arr[][10], int key, int n, int m)
+pair<int,int> staircaseSearch(int arr[][10], int key, int n, int m)
 {
+    if (key < arr[0][0] or key > arr[n - 1][m - 1])
+        return { -1,-1 };
+
+    int counter = 1;
     int i = 0;
     int j = m-1;
-    int temp = arr[i][j];
-
-    int counter = 0;
-    while (temp != key)
-    {
-        if (key > temp) i++;
-        else j--;
-        temp = arr[i][j];
+    while (i <= n - 1 and j >= 0) {
+        // debug purpose
+        cout << "try no. " << counter << " and number is " << arr[i][j] << endl;
         counter++;
-        cout << "try no. 1" << counter << "and number is " << temp << endl;
-        if (temp == arr[n - 1][0]) break;
+
+
+        if (key == arr[i][j])
+            return { i,j };
+        else if (key > arr[i][j])
+            i++;
+        else
+            j--;
     }
 
-    if (key == temp) {
-        cout << "Key found at index [" << i << "]" << "[" << j << "]" << endl;
-    }
-    else {
-        cout << "Key not found!" << endl;
-    }
+    return { -1,-1 };
 }
 int main()
 {
@@ -35,7 +35,13 @@ int main()
                      {9,10,11,12},
                      {13,14,15,16} };
 
-    staircaseSearch(arr, 14, 4, 4);
+    pair<int,int> cordi = staircaseSearch(arr, 11, 4, 4);
+
+    if (cordi.first == -1) {
+        cout << "Key not found!" << endl;
+    }
+    else
+        cout << "Key found at [" << cordi.first+1 << "," << cordi.second+1 << "]" << endl;
 
     return 0;
 }

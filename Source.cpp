@@ -4,57 +4,38 @@
 #include <algorithm>
 using namespace std;
 
-void spiralPrint(int arr[][10], int n, int m) 
+void staircaseSearch(int arr[][10], int key, int n, int m)
 {
-    int startRow = 0;
-    int endRow = n - 1;
-    int startCol = 0;
-    int endCol = m - 1;
+    int i = 0;
+    int j = m-1;
+    int temp = arr[i][j];
 
-    while (startRow <= endRow and startCol <= endCol) {
-        // start row
-        for (int col = startCol; col <= endCol; col++) {
-            cout << arr[startRow][col] << " ";
-        }
-        cout << endl;
-        // end col
-        for (int row = startRow + 1; row <= endRow; row++) {
-            cout << arr[row][endCol] << " ";
-        }
-        cout << endl;
+    int counter = 0;
+    while (temp != key)
+    {
+        if (key > temp) i++;
+        else j--;
+        temp = arr[i][j];
+        counter++;
+        cout << "try no. 1" << counter << "and number is " << temp << endl;
+        if (temp == arr[n - 1][0]) break;
+    }
 
-        // end row
-        for (int col = endCol - 1; col >= startCol; col--) {
-            if (startRow == endRow) break;
-            cout << arr[endRow][col] << " ";
-        }
-        cout << endl;
-
-        // start col
-        for (int row = endRow - 1; row >= startRow + 1; row--) {
-            if (startCol == endCol) break;
-
-            cout << arr[row][startCol] << " ";
-        }
-        cout << endl;
-
-        // update variables
-        startRow++;
-        endRow--;
-        startCol++;
-        endCol--;
+    if (key == temp) {
+        cout << "Key found at index [" << i << "]" << "[" << j << "]" << endl;
+    }
+    else {
+        cout << "Key not found!" << endl;
     }
 }
-
 int main()
 {
-    int arr[][10] = { {1,2,3,4},
-                     {5,6,7,8},
-                     {45,67,23,90},
+    int arr[][10] = {{1, 2, 3, 4},
+                     {5, 6, 7, 8},
                      {9,10,11,12},
                      {13,14,15,16} };
 
-    spiralPrint(arr, 5, 4);
+    staircaseSearch(arr, 14, 4, 4);
 
     return 0;
 }

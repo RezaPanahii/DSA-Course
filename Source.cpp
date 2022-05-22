@@ -1,35 +1,60 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
-string CompressString(string str) {
-    int n = str.length();
-    int count = 1;
-    string out;
-    
-    // abbbb
-    for (int i = 0; i < n;i++) {
-        count = 1;
-        while (i < n - 1 and str[i] == str[i + 1]) {
-            count++;
-            i++;
-        }
-        
-        out += str[i];
-        if (count > 1)
-            out += count+48;
-    }
+void spiralPrint(int arr[][10], int n, int m) 
+{
+    int startRow = 0;
+    int endRow = n - 1;
+    int startCol = 0;
+    int endCol = m - 1;
 
-    return out;
+    while (startRow <= endRow and startCol <= endCol) {
+        // start row
+        for (int col = startCol; col <= endCol; col++) {
+            cout << arr[startRow][col] << " ";
+        }
+        cout << endl;
+        // end col
+        for (int row = startRow + 1; row <= endRow; row++) {
+            cout << arr[row][endCol] << " ";
+        }
+        cout << endl;
+
+        // end row
+        for (int col = endCol - 1; col >= startCol; col--) {
+            if (startRow == endRow) break;
+            cout << arr[endRow][col] << " ";
+        }
+        cout << endl;
+
+        // start col
+        for (int row = endRow - 1; row >= startRow + 1; row--) {
+            if (startCol == endCol) break;
+
+            cout << arr[row][startCol] << " ";
+        }
+        cout << endl;
+
+        // update variables
+        startRow++;
+        endRow--;
+        startCol++;
+        endCol--;
+    }
 }
 
 int main()
 {
-    string s;
-    getline(cin, s);
+    int arr[][10] = { {1,2,3,4},
+                     {5,6,7,8},
+                     {45,67,23,90},
+                     {9,10,11,12},
+                     {13,14,15,16} };
 
-    cout << CompressString(s);
+    spiralPrint(arr, 5, 4);
 
     return 0;
 }

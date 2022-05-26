@@ -2,16 +2,22 @@
 #include "vector.h"
 using namespace std;
 
-void function(vector<string>& str_vec) {
-    std::cout << str_vec.size();
-}
-
 int main()
 {
-    // custom vector successfully created
-    vector<string> vec(4, "Reza");
 
-    function(vec);
+    vector<int> vec(4, 10);
+
+    vector<int> vec2(6, 2);
+
+    vec2 = vec;
+
+    cout << vec2.size() << endl;
+    cout << vec2.capacity() << endl;
+
+    for (int i = 0; i < vec2.size(); i++) {
+        cout << vec2[i] << " ";
+    }
+
 
     return 0;
 }

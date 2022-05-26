@@ -77,7 +77,15 @@ public:
         return max_size;
     }
 
-    type operator[](const int i) const {
+    type& operator[](const int& i) const {
         return arr[i];
+    }
+
+    void operator=(const type& vec) {
+        if (vec.size() <= this->size()) {
+            for (int i = 0; i < vec.size(); i++) {
+                arr[i] = vec[i];
+            }
+        }
     }
 };

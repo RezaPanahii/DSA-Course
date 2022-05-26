@@ -1,38 +1,83 @@
 #pragma once
 
-#include <iostream>
-
-struct Vector
+template <typename type>
+class vector
 {
-	double x, y, z;
+    // data members
+    type* arr;
+    int current;
+    int max_size;
 
-	Vector() {
-		x = 0;
-		y = 0;
-		z = 0;
-	}
-	Vector(double x, double y, double z) :
-		x(x), y(y), z(z) {}
+public:
+    // constructors and destructors and methods
 
-	Vector& operator+(Vector& vec) {
-		vec.x += this->x;
-		vec.y += this->y;
-		vec.z += this->z;
+    vector(const int& size = 1) {
+        current = 0;
+        max_size = size;
+        arr = new type[max_size];
+    }
 
-		return vec;
-	}
+    vector(const int& size, const type& value) {
+        max_size = size;
+        current = size;
+        arr = new type[max_size];
+        for (int i = 0; i < current; i++) {
+            arr[i] = value;
+        }
+    }
 
-	Vector& operator+=(Vector& vec) {
-		this->x += vec.x;
-		this->y += vec.y;
-		this->z += vec.z;
+    void push_back(const type& value) {
+        // reallocation
+        if (current == max_size) {
+            // create a new array and copy the old one, double the capacity
+            type* oldArr = arr;
+            // double the capacity
+            max_size *= 2;
+            // new allocated array
+            arr = new type[max_size];
+            // copy the old array to new one
+            for (int i = 0; i < current; i++) {
+                arr[i] = oldArr[i];
+            }
+            // delete old array
+            delete[] oldArr;
+        }
+        // assign @param value to the first empty index
+        arr[current] = value;
+        current++;
+    }
 
-		return vec;
-	}
+    void pop_back() {
+        if (current) {
+            current--;
+        }
+    }
+
+    bool isEmpty() const {
+        return current == 0;
+    }
+
+    type front() const {
+        return arr[0];
+    }
+
+    type back() const {
+        return arr[current - 1];
+    }
+
+    type at(const int& i) const {
+        return arr[i];
+    }
+
+    int size() const {
+        return current;
+    }
+
+    int capacity() const {
+        return max_size;
+    }
+
+    type operator[](const int i) const {
+        return arr[i];
+    }
 };
-std::ostream& operator<<(std::ostream& out, Vector& vec) {
-	out << "x: " << vec.x << " "
-		<< "y: " << vec.y << " "
-		<< "z: " << vec.z << std::endl;
-	return out;
-}

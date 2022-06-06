@@ -18,6 +18,14 @@ public:
 		next = nullptr;
 	}
 
+	~Node()
+	{
+		if (next != nullptr)
+		{
+			delete next;
+		}
+	}
+
 	T getData() const {
 		return data;
 	}

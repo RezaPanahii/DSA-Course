@@ -38,9 +38,8 @@ public:
         }
         return out;
     }
-
-
-	Node<T>* begin() const
+    
+    Node<T>* begin() const
 	{
 		return Head;
 	}
@@ -133,4 +132,28 @@ public:
 
         return node;
     }
+
+	void remove(int index)
+	{
+		Node<T>* temp;
+		if (index == 0)
+		{
+			temp = Head->next;
+			delete Head;
+			Head = temp;
+			return;
+		}
+		
+		temp = Head;
+		for (size_t i = 1; i < index; i++)
+		{
+			temp = temp->next;
+		}
+
+		if (temp->next == Tail)
+		{
+			Tail = temp;
+		}
+		temp->next = temp->next->next;
+	}
 };
